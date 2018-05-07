@@ -1,5 +1,10 @@
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -26,5 +31,14 @@ public class LoginPane extends GridPane {
 
         PasswordField passwordField = new PasswordField();
         add(passwordField, 1, 2);
+
+        Button button = new Button("Log In");
+        add(button,0,3);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MainStage.testSingleton();
+            }
+        });
     }
 }
