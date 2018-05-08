@@ -26,6 +26,11 @@
     -fx-background-color: #99aab5;
 }
 
+#ErrorMessage {
+    -fx-fill: red;
+    -fx-font-size: 13px;
+}
+
 .button {
     -fx-background-color: #99aab5;
     -fx-font-family: "Arial Black";

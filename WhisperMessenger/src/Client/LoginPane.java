@@ -1,4 +1,4 @@
-package Client;
+package client;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,10 +9,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import Presentation.MainStage;
+import presentation.MainStage;
 
 public class LoginPane extends GridPane {
     private Button logInButton, registerButton;
+    private Text errorMessage;
     public LoginPane() {
         this.getStyleClass().add("LoginPane");
         //sets position of the pane.
@@ -40,10 +41,23 @@ public class LoginPane extends GridPane {
         PasswordField passwordField = new PasswordField();
         add(passwordField, 1, 2);
 
+        errorMessage = new Text("Could not connect to server");
+        errorMessage.setId("ErrorMessage");
+        errorMessage.setVisible(false);
+        add(errorMessage,0,4);
+
         //adds login button todo: add enter listener.
         logInButton = new Button("Log In");
         add(logInButton,0,3);
-        logInButton.setOnAction(event -> MainStage.setNextScene(new Scene(new ChatPane(), 400,400)));
+        logInButton.setOnAction(event -> {
+            try{
+                Client.connect();
+                MainStage.setNextScene(new Scene(new ChatPane(), 400,400));
+            }
+            catch (Exception e){
+                errorMessage.setVisible(true);
+            }
+        });
 
         //adds registerbutton
         registerButton = new Button("Register");

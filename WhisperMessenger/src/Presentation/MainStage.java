@@ -1,14 +1,9 @@
-package Presentation;
+package presentation;
 
-import Client.LoginPane;
+import client.LoginPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.net.URISyntaxException;
 
 public class MainStage extends Application {
 
