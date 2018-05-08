@@ -22,7 +22,7 @@ public class Application extends javafx.application.Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setScene(mainScene);
         primaryStage.show();
-        Server.makeServer();
+        Server.getInstance();
     }
 
     public static Application getInstance() {

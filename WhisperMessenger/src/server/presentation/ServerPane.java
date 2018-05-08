@@ -14,11 +14,6 @@ public class ServerPane extends HBox{
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         getChildren().addAll(scrollPane);
-        start();
-    }
-
-    public void start() {
-        Server server = new Server();
     }
 
     public static TextArea getTextArea() {

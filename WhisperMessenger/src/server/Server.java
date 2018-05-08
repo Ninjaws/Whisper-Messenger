@@ -1,30 +1,47 @@
 package server;
 import javafx.application.Platform;
-import presentation.server.ServerPane;
+import server.presentation.ServerPane;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-    public static void makeServer() {
-        new Thread(() -> {
-            ServerSocket serverSocket = null;
-            Socket socket = null;
-            try {
-                //create a server socket
-                serverSocket = new ServerSocket(8000);
+    private static Server instance = null;
+    private ObjectOutputStream toClient = null;
+    private ObjectInputStream fromClient = null;
 
-                while (true) {
-                    socket = serverSocket.accept();
-                    Platform.runLater(() -> {
-                        ServerPane.getTextArea().appendText("A user has joined");
-                    });
+    private Server(){
+        makeServer();
+    }
+
+    private void makeServer() {
+            new Thread(() -> {
+                ServerSocket serverSocket = null;
+                Socket socket = null;
+                try {
+                    //create a server socket
+                    serverSocket = new ServerSocket(8000);
+                    Session session = new Session();
+                    while (true) {
+                        socket = serverSocket.accept();
+
+                        Platform.runLater(() -> {
+                            ServerPane.getTextArea().appendText("A user has joined");
+                        });
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
+            }).start();
+    }
+
+    public static Server getInstance(){
+        if(instance == null)
+            instance = new Server();
+        return instance;
     }
 
 }
