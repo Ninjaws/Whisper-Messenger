@@ -14,18 +14,23 @@ import Presentation.MainStage;
 public class LoginPane extends GridPane {
     private Button logInButton, registerButton;
     public LoginPane() {
+        this.getStyleClass().add("LoginPane");
+        //sets position of the pane.
         setAlignment(Pos.CENTER);
         setHgap(10);
         setVgap(10);
         setPadding(new Insets(25, 25, 25, 25));
 
+        //adds the title of the application
         Text title = new Text("Whisper");
         title.setId("title");
         add(title, 0, 0);
 
+        //adds user name label
         Label userName = new Label("User Name:");
         add(userName, 0, 1);
 
+        //adds username field
         TextField userNameField = new TextField();
         add(userNameField, 1, 1);
 
@@ -35,13 +40,14 @@ public class LoginPane extends GridPane {
         PasswordField passwordField = new PasswordField();
         add(passwordField, 1, 2);
 
+        //adds login button todo: add enter listener.
         logInButton = new Button("Log In");
         add(logInButton,0,3);
         logInButton.setOnAction(event -> MainStage.setNextScene(new Scene(new ChatPane(), 400,400)));
 
+        //adds registerbutton
         registerButton = new Button("Register");
         add(registerButton,1,3);
         registerButton.setOnAction(event -> MainStage.setNextScene(new Scene(new ChatPane(), 400,400)));
-        this.setStyle("-fx-background: #23272a;");
     }
 }
