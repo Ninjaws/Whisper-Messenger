@@ -1,8 +1,7 @@
-package presentation.server;
+package server.presentation;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import presentation.client.LoginPane;
 import server.Server;
 
 public class Application extends javafx.application.Application {

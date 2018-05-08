@@ -1,4 +1,4 @@
-package presentation.server;
+package server.presentation;
 
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;

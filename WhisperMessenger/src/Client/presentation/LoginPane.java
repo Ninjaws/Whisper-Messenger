@@ -1,4 +1,4 @@
-package presentation.client;
+package client.presentation;
 
 import client.Client;
 import javafx.geometry.Insets;
