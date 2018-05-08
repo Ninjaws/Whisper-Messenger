@@ -25,9 +25,10 @@ public class Server {
                     //create a server socket
                     serverSocket = new ServerSocket(8000);
                     Session session = new Session();
+                    new Thread(session).start();
                     while (true) {
                         socket = serverSocket.accept();
-
+                        session.addSocket(socket);
                         Platform.runLater(() -> {
                             ServerPane.getTextArea().appendText("A user has joined");
                         });
