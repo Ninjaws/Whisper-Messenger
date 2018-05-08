@@ -51,7 +51,7 @@ public class LoginPane extends GridPane {
         add(logInButton,0,3);
         logInButton.setOnAction(event -> {
             try{
-                Client.connect();
+                Client client = new Client();
                 Application.setNextScene(new Scene(new ChatPane(), 400,400));
             }
             catch (Exception e){

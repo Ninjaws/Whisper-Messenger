@@ -17,13 +17,13 @@ public class Application extends javafx.application.Application {
 
     public Application() {
         mainScene = new Scene(new ServerPane(), 400,400);
-        Server server = new Server();
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setScene(mainScene);
         primaryStage.show();
+        Server.makeServer();
     }
 
     public static Application getInstance() {
