@@ -5,6 +5,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URISyntaxException;
+
 public class MainStage extends Application {
 
     public static void main(String[] args) {
@@ -18,6 +23,8 @@ public class MainStage extends Application {
 
     public MainStage() {
         mainScene = new Scene(new LoginPane(), 400,400);
+        mainScene.getStylesheets().clear();
+        mainScene.getStylesheets().add(getClass().getResource("/Styles.css").toExternalForm());
     }
 
     @Override
@@ -28,7 +35,8 @@ public class MainStage extends Application {
     }
 
     public static void setNextScene(Scene scene) {
-        stage.setScene(scene);
+        mainScene = scene;
+        stage.setScene(mainScene);
     }
 
     public static MainStage getInstance() {
@@ -38,7 +46,4 @@ public class MainStage extends Application {
         return instance;
     }
 
-    public static void testSingleton() {
-        System.out.println(true);
-    }
 }

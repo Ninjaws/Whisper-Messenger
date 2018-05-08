@@ -1,0 +1,31 @@
+#title {
+    -fx-font-size: 32px;
+    -fx-font-family: "Arial Black";
+    -fx-fill: #99aab5;;
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+.label {
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial Black";
+    -fx-text-color: #99aab5;
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+.text-field {
+    -fx-background-color: #99aab5;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Black";
+    -fx-font-size: 15px;
+}
+
+.password-field {
+    -fx-background-color: #99aab5;
+}
+
+.button {
+    -fx-background-color: #99aab5;
+    -fx-font-family: "Arial Black";
+    -fx-text-fill: white;
+}
+
