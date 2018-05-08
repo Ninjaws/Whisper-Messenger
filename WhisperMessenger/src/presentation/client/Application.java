@@ -1,22 +1,20 @@
-package presentation;
+package presentation.client;
 
-import client.LoginPane;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class MainStage extends Application {
+public class Application extends javafx.application.Application {
 
     public static void main(String[] args) {
-        MainStage.getInstance();
+        Application.getInstance();
        launch(args);
     }
 
-    private static MainStage instance;
+    private static Application instance;
     private static Scene mainScene;
     private static Stage stage;
 
-    public MainStage() {
+    public Application() {
         mainScene = new Scene(new LoginPane(), 400,400);
         mainScene.getStylesheets().clear();
         mainScene.getStylesheets().add(getClass().getResource("/Styles.css").toExternalForm());
@@ -34,9 +32,9 @@ public class MainStage extends Application {
         stage.setScene(mainScene);
     }
 
-    public static MainStage getInstance() {
+    public static Application getInstance() {
         if(instance == null)
-            instance = new MainStage();
+            instance = new Application();
 
         return instance;
     }

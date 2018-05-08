@@ -1,4 +1,4 @@
-package client;
+package presentation.client;
 
 import javafx.scene.layout.BorderPane;
 

@@ -1,5 +1,6 @@
-package client;
+package presentation.client;
 
+import client.Client;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import presentation.MainStage;
 
 public class LoginPane extends GridPane {
     private Button logInButton, registerButton;
@@ -52,16 +52,17 @@ public class LoginPane extends GridPane {
         logInButton.setOnAction(event -> {
             try{
                 Client.connect();
-                MainStage.setNextScene(new Scene(new ChatPane(), 400,400));
+                Application.setNextScene(new Scene(new ChatPane(), 400,400));
             }
             catch (Exception e){
                 errorMessage.setVisible(true);
+                e.printStackTrace();
             }
         });
 
         //adds registerbutton
         registerButton = new Button("Register");
         add(registerButton,1,3);
-        registerButton.setOnAction(event -> MainStage.setNextScene(new Scene(new ChatPane(), 400,400)));
+        registerButton.setOnAction(event -> Application.setNextScene(new Scene(new ChatPane(), 400,400)));
     }
 }
