@@ -1,18 +1,15 @@
 package server;
-import javafx.application.Platform;
 import server.presentation.ServerPane;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Server {
     private static Server instance = null;
-    private ObjectOutputStream toClient = null;
-    private ObjectInputStream fromClient = null;
 
+    private ArrayList<Session> sessions = new ArrayList<>();
     private Server(){
         makeServer();
     }
@@ -24,14 +21,11 @@ public class Server {
                 try {
                     //create a server socket
                     serverSocket = new ServerSocket(8000);
-                    Session session = new Session();
-                    new Thread(session).start();
                     while (true) {
                         socket = serverSocket.accept();
-                        session.addSocket(socket);
-                        Platform.runLater(() -> {
-                            ServerPane.getTextArea().appendText("A user has joined");
-                        });
+                        Session session = new Session(socket);
+                        sessions.add(session);
+                        new Thread(session).start();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -45,4 +39,44 @@ public class Server {
         return instance;
     }
 
+    private class Session implements Runnable{
+        private Socket user;
+        private DataInputStream fromClient = null;
+        private DataOutputStream toClient = null;
+
+        public Session(Socket user) {
+            this.user = user;
+            try {
+                this.fromClient = new DataInputStream(user.getInputStream());
+                this.toClient = new DataOutputStream(user.getOutputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void writeToAll(String data){
+            for(Session session : sessions){
+                try {
+                    session.toClient.writeUTF(data);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void run() {
+            while(true){
+                try {
+                    String data = fromClient.readUTF();
+                    ServerPane.getTextArea().appendText(data);
+                    writeToAll(data);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
+
+
