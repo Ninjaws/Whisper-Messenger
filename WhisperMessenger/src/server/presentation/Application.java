@@ -2,7 +2,7 @@ package server.presentation;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import server.Server;
+import server.data.Server;
 
 public class Application extends javafx.application.Application {
 

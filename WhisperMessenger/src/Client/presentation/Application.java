@@ -17,7 +17,7 @@ public class Application extends javafx.application.Application {
     public Application() {
         mainScene = new Scene(new LoginPane(), 400,400);
         mainScene.getStylesheets().clear();
-        mainScene.getStylesheets().add(getClass().getResource("/Styles.css").toExternalForm());
+        mainScene.getStylesheets().add(getClass().getResource("/LoginStyle.css").toExternalForm());
     }
 
     @Override
@@ -29,7 +29,13 @@ public class Application extends javafx.application.Application {
 
     public static void setNextScene(Scene scene) {
         mainScene = scene;
+        mainScene.getStylesheets().clear();
         stage.setScene(mainScene);
+    }
+
+    public static void setStyle(String fileName) {
+        mainScene.getStylesheets().clear();
+        mainScene.getStylesheets().add(getInstance().getClass().getResource("/" + fileName).toExternalForm());
     }
 
     public static Application getInstance() {

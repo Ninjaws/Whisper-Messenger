@@ -3,7 +3,6 @@ package server.presentation;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
-import server.Server;
 
 
 public class ServerPane extends HBox{

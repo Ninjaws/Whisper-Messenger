@@ -1,0 +1,27 @@
+.ChatPane {
+    -fx-background-color: #23272a;
+}
+
+.text-field  {
+    -fx-background-color: #99aab5;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Black";
+    -fx-font-size: 15px;
+    -fx-alignment: center-left;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Black";
+    -fx-font-size: 15px;
+    -fx-alignment: center-left;
+}
+
+.text-area {
+
+    -fx-background-color: #23272a;
+}
+
+.scroll-pane {
+    -fx-background-color: #23272a;
+}

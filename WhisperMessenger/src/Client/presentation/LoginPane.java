@@ -1,5 +1,6 @@
 package client.presentation;
 
+import Entities.User;
 import client.Client;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import sun.applet.AppletListener;
 
 public class LoginPane extends GridPane {
     private Button logInButton, registerButton;
@@ -21,6 +23,7 @@ public class LoginPane extends GridPane {
         setHgap(10);
         setVgap(10);
         setPadding(new Insets(25, 25, 25, 25));
+        this.setMinSize(Double.MAX_VALUE,Double.MAX_VALUE);
 
         //adds the title of the application
         Text title = new Text("Whisper");
@@ -51,8 +54,11 @@ public class LoginPane extends GridPane {
         add(logInButton,0,3);
         logInButton.setOnAction(event -> {
             try{
-                Client client = new Client();
+                User user = new User(userNameField.getText(), passwordField.getText());
+                Client client = new Client(user);
+
                 Application.setNextScene(new Scene(new ChatPane(), 400,400));
+                Application.setStyle("ChatStyle.css");
             }
             catch (Exception e){
                 errorMessage.setVisible(true);

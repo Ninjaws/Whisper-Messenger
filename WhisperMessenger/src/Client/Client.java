@@ -1,44 +1,45 @@
 package client;
 
+import Entities.Messages.Message;
+import Entities.User;
 import client.presentation.ChatPane;
 import javafx.application.Platform;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class Client {
-    public static void main(String[] args) throws IOException {
-    }
-    private static DataOutputStream toServer = null;
-    private static DataInputStream fromServer = null;
+    private static ObjectOutputStream toServer = null;
+    private static ObjectInputStream fromServer = null;
+    private static User user;
 
-    public Client() {
-        try {
-            Socket socket = new Socket("localhost", 8000);
-            toServer = new DataOutputStream(socket.getOutputStream());
-            fromServer = new DataInputStream(socket.getInputStream());
-            new Thread(() -> {
-                while (true){
-                    try {
-                        System.out.println(true);
-                        ChatPane.getTextArea().appendText(fromServer.readUTF());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+    public Client(User user) throws Exception {
+        this.user = user;
+        Socket socket = new Socket("localhost", 8000);
+        toServer = new ObjectOutputStream(socket.getOutputStream());
+        fromServer = new ObjectInputStream(socket.getInputStream());
+        ChatPane.getTextArea().appendText("You have been connected.");
+        new Thread(() -> {
+            while (true){
+                try {
+                    Message message = (Message)fromServer.readObject();
+                    ChatPane.getTextArea().appendText("\n" + message.getUser().getName() + "says: " +  message.getText());
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
+            }
             }).start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
-    public static DataOutputStream getToServer() {
+    public static ObjectOutputStream getToServer() {
         return toServer;
     }
 
-    public static DataInputStream getFromServer() {
+    public static ObjectInputStream getFromServer() {
         return fromServer;
+    }
+
+    public static User getUser() {
+        return user;
     }
 }

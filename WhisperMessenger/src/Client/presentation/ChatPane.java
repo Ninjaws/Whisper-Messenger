@@ -1,5 +1,6 @@
 package client.presentation;
 
+import Entities.Messages.Message;
 import client.Client;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,21 +15,28 @@ import java.io.IOException;
 public class ChatPane extends BorderPane {
     private static TextArea textArea = new TextArea();
     public ChatPane() {
+        this.getStyleClass().add("ChatPane");
+        this.setMinSize(Double.MAX_VALUE,Double.MAX_VALUE);
         BorderPane paneForTextField = new BorderPane();
         paneForTextField.setPadding(new Insets(5,5,5,5));
         paneForTextField.setLeft(new Label("Enter message: "));
-
         TextField tf = new TextField();
+        tf.setId("chatField");
         tf.setAlignment(Pos.BASELINE_RIGHT);
         paneForTextField.setCenter(tf);
+        ScrollPane scrollPane = new ScrollPane(textArea);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        this.setCenter(new ScrollPane(textArea));
-        this.setTop(paneForTextField);
+        this.setCenter(scrollPane);
+        this.setBottom(paneForTextField);
 
 
         tf.setOnAction(e -> {
             try {
-                Client.getToServer().writeUTF(tf.getText());
+                Message message = new Message(Client.getUser(),tf.getText());
+                tf.clear();
+                Client.getToServer().writeObject(message);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
